@@ -1,10 +1,11 @@
 #############################################################
-VER = 	"Freelancer App (by Design Life)"       #############
+VER = 	"Freelancer App (by Team DesignLife)"       #########
 #############################################################
 
 system('clear')
 require 'json'
 require 'rest-client'
+require 'terminal-table'
 
 
 URL = "https://scavenger.freelancer.com/data_dynamic"
@@ -41,10 +42,21 @@ end
 
 ### MAIN CODE STARTS HERE
 
-puts("#########################################################################\n## ".gray + VER.bold.yellow + "                            #############\n#########################################################################\n".gray)
+puts("#########################################################################\n##     ".gray + VER.bold.yellow + "                    ###########\n#########################################################################\n".gray)
 
-print "Connecting to".bold.white + " Freelancer.com ".bold.blue
+puts "Fetching Data from".gray + " Freelancer.com ".bold.blue + "...\n\n".gray
+
+res = JSON.parse RestClient.get(URL)
 
 
+table = Terminal::Table.new :title => "Leaderboard".red.bold, :headings => ["Rank".bold.blue, "Team Name".bold.blue, "Score".bold.blue]
+res['leaders'].each do |lead|
+	table.add_row([
+        lead['rank'].to_s.yellow.bold,
+        lead['name'].to_s,
+        lead['score'].to_s
+    ])
+end
 
-
+puts table
+puts "\n\nBy:" + " Team DesignLife\n\n".bold.blue

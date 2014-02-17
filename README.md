@@ -13,3 +13,6 @@ In the application directory, just bundle the required gems and run it. It'll di
 $ bundle install
 $ ruby app.rb
 ```
+
+
+### TEAM DESIGNLIFE
